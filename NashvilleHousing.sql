@@ -1,3 +1,5 @@
+--First Cleaning 
+------------------------
 select * from..HousingInNashville ;
 
 select *
@@ -129,4 +131,70 @@ select *  from row_numCTE
 where row_num > 1 
 
 ;
+--Second analysis data 
+------------------------                    -------------------------------hhhh--------------------
+select * from..HousingInNashville ;
+
+-- property uses in Nashville City
+select LandUse , count(LandUse) as LandUsesCount 
+from..HousingInNashville 
+group by LandUse
+order by 2;
+
+----the biggest  property per acreage
+select  PropertyAddress, property_city  , SalePrice , Acreage , Bedrooms , FullBath , HalfBath , OwnerName , LandUse
+from..HousingInNashville 
+where Bedrooms is not null
+order by Bedrooms  desc
+;
+--the highest price for  sold property
+select  PropertyAddress, property_city  , SalePrice , Acreage , Bedrooms , FullBath , HalfBath , OwnerName , LandUse
+from..HousingInNashville 
+where Bedrooms is not null
+order by SalePrice  desc
+;
+--- bigest Cities per property count 
+select  property_city, count (property_city) as theCount  
+from..HousingInNashville 
+group by property_city 
+order by 2  desc
+;
+
+-- Year built per count
+select  YearBuilt , count (property_city) as propertyCount
+from..HousingInNashville 
+where YearBuilt is not null
+group by YearBuilt
+order by YearBuilt
+;
+-- in which year many properties had built
+select  YearBuilt , count (property_city) as propertyCount
+from..HousingInNashville 
+where YearBuilt is not null
+group by YearBuilt
+order by 2 desc
+;
+----the most profitable property
+select   UniqueID , PropertyAddress, property_city , (SalePrice - TotalValue) as profit
+from..HousingInNashville 
+order by profit desc
+;
+-- properties value per Cities
+select property_city , count(property_city) as propertiesCount , sum (SalePrice) totalPrperiesValue
+from..HousingInNashville 
+where property_city is not null 
+group by property_city
+order by 3 	desc ;
+-- replace unknown city by null 
+
+--UPDATE HousingInNashville
+--SET property_city = null  
+--where [UniqueID ] = 46010 ;
+
+--select  [UniqueID ] ,property_city 
+--from..HousingInNashville
+--where [UniqueID ] = 46010 ;
+----property_city like '%UNk%';
+
+
 
