@@ -150,4 +150,21 @@ group by ownerSpiltCity
 order by 2 desc ;
 
 ---- 
+--schadual work = clean values = null in property_city column and likewyse 
+
+select * from dbo.HousingInNashville where property_city is null  ;
+--- max,min avg properties price in cities in  Tennessee state
+select property_city , max(SalePrice)  MaxPricePerCity, min(SalePrice) MinPricePerCity, avg(SalePrice) AvgPricePerCity
+from dbo.HousingInNashville 
+group by property_city
+order by 1
+;
+-- max,min avg properties price in street ,road and zones
+select PropertyAddress , max(SalePrice) over (partition by SalePrice )  MaxPricePerCity,
+min(SalePrice) over (partition by SalePrice ) MinPricePerCity, 
+avg(SalePrice) over (partition by SalePrice ) AvgPricePerCity
+from dbo.HousingInNashville 
+order by 1
+;
+-- test 
 
